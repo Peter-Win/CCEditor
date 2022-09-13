@@ -19,7 +19,7 @@ app.use(function(err, req, res, next) {
 const port = 3335
 app.listen(port, () => {
     console.log(`Use this URL in your browser: http://localhost:${port}/`)
-    console.log("Press Ctrl+C to step the server.")
+    console.log("Press Ctrl+C to stop the server.")
 })
 
 module.exports = {port}

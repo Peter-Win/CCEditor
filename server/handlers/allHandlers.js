@@ -1,3 +1,5 @@
+const { askCompounds } = require("./askCompounds")
+const { askSubstId } = require("./askSubstId")
 const { deletePreset } = require("./deletePreset")
 const { getFontsList } = require("./getFontsList")
 const { getSvgPresets } = require("./getSvgPresets")
@@ -10,6 +12,8 @@ const { svgUpload } = require("./svgUpload")
 const { web } = require("./web"); 
 
 const allHandlers = (app) => {
+    app.get('/api/askCompounds/:name', askCompounds)
+    app.get('/api/askSubstId/:id', askSubstId)
     app.get('/api/font/:name', loadFont)
     app.get('/api/getFontsList', getFontsList)
     app.get('/api/getSvgPresets', getSvgPresets)

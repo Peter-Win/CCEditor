@@ -28,6 +28,7 @@ const allHandlers = (app) => {
     app.get('/', web)
     app.get('/index.html', web)
     app.get('/bundle.js', web)
+    app.get('/images/:name', web)
 }
 
 module.exports = {allHandlers}

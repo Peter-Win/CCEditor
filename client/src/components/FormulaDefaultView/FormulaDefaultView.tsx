@@ -12,45 +12,23 @@ import { renderTopFrame } from "charchem/drawSys/figures/renderTopFrame";
 import { ChemExpr } from "charchem/core/ChemExpr";
 import { FormulaInputBoxStore } from "../FormulaInputBox";
 import styles from "./FormulaDefaultView.module.less";
+import { BlockHeader } from "../BlockHeader";
+import { ViewFormulaUni } from "../ViewFormulaUni";
 
 interface PropsFormulaDefaultView {
   store: FormulaInputBoxStore;
 }
 
-const renderFormulaSvg = (owner: HTMLElement, expr: ChemExpr) => {
-  if (!document) return;
-  const surface = new SvgWebSurface();
-  const props = createChemImgProps(owner, surface);
-  const { frame } = buildExpression(expr, props);
-  renderTopFrame(frame, surface);
-  const { bounds } = frame;
-  owner.innerHTML = surface.exportText({
-    width: `${bounds.width}px`,
-    height: `${bounds.height}px`,
-  });
-};
-
 export const FormulaDefaultView: React.FC<PropsFormulaDefaultView> = observer(
   ({ store }: PropsFormulaDefaultView) => {
     const { expr } = store;
     if (!expr) return null;
-    const code = isTextFormula(expr) ? makeTextFormula(expr, rulesHtml) : "";
     return (
       <div className={styles.formulaDefaultView}>
-        <label>Result:</label>
-        <div
-          className="echem-formula"
-          style={{ fontSize: 30 }}
-          ref={(elem) => {
-            if (elem) {
-              if (code) {
-                elem.innerHTML = code;
-              } else {
-                renderFormulaSvg(elem, expr);
-              }
-            }
-          }}
-        />
+        <BlockHeader text="Result:" />
+        <div className={styles.formulaBox}>
+          <ViewFormulaUni expr={expr} />
+        </div>
       </div>
     );
   }

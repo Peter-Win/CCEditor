@@ -5,4 +5,11 @@
 
 .main-layout { min-height: 100vh; }
 
-@table-row-hover-color: @green-3;
+@hover-color: @green-3;
+@table-row-hover-color: @hover-color;
+
+.header-line {
+    display: flex;
+    width: 100%;
+    &>*:nth-child(1) { flex: 1 }
+}

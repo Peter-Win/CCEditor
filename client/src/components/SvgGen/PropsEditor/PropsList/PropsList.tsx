@@ -23,42 +23,43 @@ export const PropsList: React.FC<PropsPropsList> = observer(
             </tr>
           </thead>
           <tbody>
-          {propsList.map(({ key, dstValue, srcValue }) => (
-            <tr key={key}>
-              <td>{key in propDict ? `${key}: ${propDict[key]}` : key}</td>
-              <td>
-                {typeof dstValue === "string" && (
-                  <Input
-                    size="small"
-                    value={srcValue as string}
-                    placeholder={String(dstValue)}
-                    onChange={({ currentTarget: { value } }) => {
-                      /* Здесь важно, что пустая строка воспринимается как undefined */
-                      store.setImgProp(key, value || undefined);
-                    }}
-                    allowClear
-                  />
-                )}
-                {typeof dstValue === "number" && (
-                  <InputNumberOpt
-                    size="small"
-                    value={srcValue as number | undefined}
-                    placeholder={String(dstValue)}
-                    onChange={(v) => store.setImgProp(key, v)}
-                  />
-                )}
-                {typeof dstValue === "boolean" && (
-                  <Select
-                    size="small"
-                    allowClear
-                    options={boolOptions}
-                    value={srcValue}
-                    placeholder={dstValue ? "Yes" : "No"}
-                    onChange={(v) => store.setImgProp(key, v)}
-                />)}
-              </td>
-            </tr>
-          ))}
+            {propsList.map(({ key, dstValue, srcValue }) => (
+              <tr key={key}>
+                <td>{key in propDict ? `${key}: ${propDict[key]}` : key}</td>
+                <td>
+                  {typeof dstValue === "string" && (
+                    <Input
+                      size="small"
+                      value={srcValue as string}
+                      placeholder={String(dstValue)}
+                      onChange={({ currentTarget: { value } }) => {
+                        /* Здесь важно, что пустая строка воспринимается как undefined */
+                        store.setImgProp(key, value || undefined);
+                      }}
+                      allowClear
+                    />
+                  )}
+                  {typeof dstValue === "number" && (
+                    <InputNumberOpt
+                      size="small"
+                      value={srcValue as number | undefined}
+                      placeholder={String(dstValue)}
+                      onChange={(v) => store.setImgProp(key, v)}
+                    />
+                  )}
+                  {typeof dstValue === "boolean" && (
+                    <Select
+                      size="small"
+                      allowClear
+                      options={boolOptions}
+                      value={srcValue}
+                      placeholder={dstValue ? "Yes" : "No"}
+                      onChange={(v) => store.setImgProp(key, v)}
+                    />
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

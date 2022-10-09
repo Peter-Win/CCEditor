@@ -7,12 +7,12 @@ import {
   formulaInputBoxStore,
 } from "./components/FormulaInputBox";
 import { ErrorInfo } from "./components/ErrorInfo";
-import { TextFormatView } from "./components/TextFormatView";
-import { FormulaDefaultView } from "./components/FormulaDefaultView";
 import { appStore } from "./appStore";
 import { SvgGen } from "./components/SvgGen";
+import { RightMenu } from "./components/RightMenu";
+import { StandardInfoBox } from "./components/StandardInfoBox";
 
-const { Content, Header, Sider, Footer } = Layout;
+const { Content, Header, Footer } = Layout;
 
 export const MainFrame: React.FC = observer(() => {
   const inputBox = React.useRef<HTMLTextAreaElement | null>(null);
@@ -21,29 +21,29 @@ export const MainFrame: React.FC = observer(() => {
   }, []);
   return (
     <Layout className="main-layout">
-      <Header style={{ padding: 0 }}>
-        <Menu
-          mode="horizontal"
-          onClick={({ key }) => appStore.setCurPage(key)}
-          selectedKeys={[appStore.curPage]}
-        >
-          <Menu.Item key="std" icon={<HomeOutlined />}>
-            Standard tools
-          </Menu.Item>
-          <Menu.Item key="svg" icon={<FileImageOutlined />}>
-            SVG generation
-          </Menu.Item>
-        </Menu>
+      <Header style={{ background: "white", padding: "0 10px" }}>
+        <div className="header-line">
+          <Menu
+            mode="horizontal"
+            onClick={({ key }) => appStore.setCurPage(key)}
+            selectedKeys={[appStore.curPage]}
+          >
+            <Menu.Item key="std" icon={<HomeOutlined />}>
+              Standard tools
+            </Menu.Item>
+            <Menu.Item key="svg" icon={<FileImageOutlined />}>
+              SVG generation
+            </Menu.Item>
+          </Menu>
+          <RightMenu />
+        </div>
       </Header>
       <Layout>
         <Content style={{ padding: "0.5em" }}>
           <FormulaInputBox store={formulaInputBoxStore} ref={inputBox} />
           <ErrorInfo store={formulaInputBoxStore} />
           {appStore.curPage === "std" && (
-            <>
-              <FormulaDefaultView store={formulaInputBoxStore} />
-              <TextFormatView store={formulaInputBoxStore} />
-            </>
+            <StandardInfoBox store={formulaInputBoxStore} />
           )}
           {appStore.curPage === "svg" && <SvgGen />}
         </Content>

@@ -9,8 +9,8 @@ import { SvgFormulaView } from "./SvgFormulaView";
 
 export const SvgGen: React.FC = observer(() => {
   React.useEffect(() => {
-    const {expr} = formulaInputBoxStore;
     propsEditorStore.init(() => {
+      const { expr } = formulaInputBoxStore;
       if (expr) propsEditorStore.build(expr);
     });
   }, []);

@@ -23,9 +23,13 @@ module.exports = {
     compress: true,
     port: 3334,
     proxy: {
-      context: ['/img', '/api', '/svgDownload'],
+      context: [
+        '/img',
+        '/api',
+        '/svgDownload',
+      ],
       target: "http://localhost:3335",
-    }
+    },
   },
   devtool: 'source-map',
   module: {
@@ -79,6 +83,13 @@ module.exports = {
           'style-loader',
           'css-loader',
         ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[hash][ext][query]',
+        },
       },
     ],
   },

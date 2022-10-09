@@ -7,11 +7,9 @@ interface PropsFloadToolbox {
   children?: React.ReactNode;
 }
 
-export const FloadToolbox: React.FC<PropsFloadToolbox> = ({ children }: PropsFloadToolbox) => (
-  <div className={styles.floadTooltip}>
-    {children}
-  </div>
-);
+export const FloadToolbox: React.FC<PropsFloadToolbox> = ({
+  children,
+}: PropsFloadToolbox) => <div className={styles.floadTooltip}>{children}</div>;
 
 FloadToolbox.defaultProps = {
   children: null,

@@ -7,11 +7,15 @@ const keyFormula = "curFormula";
 
 export class FormulaInputBoxStore {
   constructor() {
+    makeAutoObservable(this);
+  }
+
+  init() {
     try {
       const s = sessionStorage.getItem(keyFormula);
       this.formula = s || "";
+      this.update();
     } catch (e) {}
-    makeAutoObservable(this);
   }
 
   counter: DebounceCounter = {};
@@ -38,7 +42,14 @@ export class FormulaInputBoxStore {
     }
     try {
       sessionStorage.setItem(keyFormula, formula);
-    } catch(e) {}
+    } catch (e) {}
+  }
+
+  insertFormula(code: string) {
+    let { formula } = this;
+    if (formula) formula += " + ";
+    formula += code;
+    this.setFormula(formula);
   }
 }
 

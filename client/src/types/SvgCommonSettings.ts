@@ -1,4 +1,4 @@
 export interface SvgCommonSettings {
-    bgColor?: string; // default = white
-    zoom?: number; // default =1
+  bgColor?: string; // default = white
+  zoom?: number; // default =1
 }

@@ -37,19 +37,23 @@ interface PortablePropItem {
 const presetStub = {} as PortablePreset;
 
 const counterUpdateSettings: DebounceCounter = {};
-const counterSavePresets: DebounceCounter = {}
+const counterSavePresets: DebounceCounter = {};
 
 const postJson = <T>(url: string, data: T) => {
   fetch(url, {
     method: "post",
-    headers: {'Content-Type': 'application/json'},
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
-  }).catch(e => notification.error({message: "Save Error", description: e.message}))
-}
+  }).catch((e) =>
+    notification.error({ message: "Save Error", description: e.message })
+  );
+};
 
 const savePresets = (presets: PortablePreset[]) => {
-  debounce(counterSavePresets, 500, () => postJson("/api/setSvgPresets", presets));
-}
+  debounce(counterSavePresets, 500, () =>
+    postJson("/api/setSvgPresets", presets)
+  );
+};
 
 export class PropsEditorStore {
   constructor() {
@@ -57,16 +61,17 @@ export class PropsEditorStore {
   }
 
   // common settings
-  commonSettings: SvgCommonSettings = {}
+  commonSettings: SvgCommonSettings = {};
+
   initSettings(settings: SvgCommonSettings) {
     this.commonSettings = settings;
   }
 
   updateSettings(settings: Partial<SvgCommonSettings>) {
-    this.commonSettings = {...this.commonSettings, ...settings};
-    debounce(counterUpdateSettings, 500, () => 
+    this.commonSettings = { ...this.commonSettings, ...settings };
+    debounce(counterUpdateSettings, 500, () =>
       postJson("/api/setSvgSettings", this.commonSettings)
-    )
+    );
   }
 
   // Текущая вкладка
@@ -273,11 +278,13 @@ export class PropsEditorStore {
     if (!font) return undefined;
     const result = new SvgSurfacePortable(font);
     // Добавить шрифты
-    const fontNames = Object.values(curPreset.styles).map(({fontName}) => fontName).filter(name => !!name);
+    const fontNames = Object.values(curPreset.styles)
+      .map(({ fontName }) => fontName)
+      .filter((name) => !!name);
     const shortFontNames = Array.from(new Set(fontNames));
     // Не оптимальный поиск. Но шрифтов не должно быть много.
-    shortFontNames.forEach(name => {
-      const fontInfo = this.fonts.find(({shortName}) => shortName === name);
+    shortFontNames.forEach((name) => {
+      const fontInfo = this.fonts.find(({ shortName }) => shortName === name);
       const font = fontInfo?.font;
       if (font) result.addGlbFont(name, font);
     });
@@ -331,7 +338,7 @@ export class PropsEditorStore {
     const onInit = ([fontsList, presetsList, settings]: [
       FontFileInfo[],
       PortablePreset[],
-      SvgCommonSettings,
+      SvgCommonSettings
     ]) => {
       this.setFonts(fontsList.map((item) => ({ ...item, status: "none" })));
       this.setPresets(verifyPresets(presetsList));
@@ -342,7 +349,7 @@ export class PropsEditorStore {
       Promise.all([
         fetch("/api/getFontsList").then((resp) => resp.json()),
         fetch("/api/getSvgPresets").then((resp) => resp.json()),
-        fetch("/api/getSvgSettings").then(resp => resp.json()),
+        fetch("/api/getSvgSettings").then((resp) => resp.json()),
       ])
         .then((resp) => onInit(resp))
         .then(() => {
@@ -387,10 +394,11 @@ export class PropsEditorStore {
         item.error = e;
       });
   }
+
   // Загрузка основного контента или загрузка любого шрифта
   get isBusy(): boolean {
-    const {isLoading, fonts} = this;
-    return isLoading || !!fonts.find(({status}) => status === "load");
+    const { isLoading, fonts } = this;
+    return isLoading || !!fonts.find(({ status }) => status === "load");
   }
 
   async svgDownload(): Promise<void> {

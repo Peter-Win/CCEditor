@@ -63,7 +63,10 @@ export const CreateNewPreset: React.FC<PropsModalNewPreset> = ({
             setCreate(false);
           }}
         >
-          <Alert type="info" message={`The new preset will copy the properties from the current: ${store.curPreset.name}`} />          
+          <Alert
+            type="info"
+            message={`The new preset will copy the properties from the current: ${store.curPreset.name}`}
+          />
           <Form.Item
             name="name"
             label="Name of new preset"
@@ -72,7 +75,7 @@ export const CreateNewPreset: React.FC<PropsModalNewPreset> = ({
           >
             <Input ref={refField} />
           </Form.Item>
-          <div style={{textAlign: "right"}}>
+          <div style={{ textAlign: "right" }}>
             <Space>
               <Button onClick={onCancel}>Cancel</Button>
               <Button type="primary" htmlType="submit">

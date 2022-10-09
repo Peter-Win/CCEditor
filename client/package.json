@@ -16,6 +16,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.22.3",
+    "mathjax-full": "^3.2.2",
+    "mathjax-react": "^2.0.1",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
     "react": "^18.2.0",

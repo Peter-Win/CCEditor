@@ -3,6 +3,7 @@ import { ChemStyleId } from "charchem/drawSys/ChemStyleId";
 export const chemImgStylesMap: Record<ChemStyleId, string> = {
   agentK: "Reagent coefficient",
   atom: "Atom",
+  atomNumber: "Atom number",
   bracket: "Bracket",
   bracketCharge: "Bracket charge",
   bracketCount: "Bracket count",
